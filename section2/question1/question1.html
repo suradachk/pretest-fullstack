@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Section 2 Question1</title>
+  </head>
+
+  <style>
+    .container {
+      display: flex;
+    }
+
+    .div1 {
+      float: left;
+      width: 200px;
+      padding: 10px;
+      height: 300px;
+    }
+
+    .div2 {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .div3 {
+      float: right;
+      width: 300px;
+      padding: 10px;
+      height: 300px;
+    }
+
+    @media (max-width: 600px) {
+      .div2 {
+            overflow-x: auto;
+      }
+    }
+
+  </style>
+
+  <body>
+    <div class="container">
+      <div class="div1">
+        <input type="number" id="keyNum" onkeyup="isNumeric(this.value)" />
+      </div>
+      <div class="div2">
+        <select name="checkType" id="checkType" onchange="checkType(this.value)">
+          <option value="1">isPrime</option>
+          <option value="2">isFibonacci</option>
+        </select>
+      </div>
+      <div class="div3"><p id="result"></p></div>
+    </div>
+
+    <script>
+
+      function fibonacci (query, count = 1, last = 0) {
+        if(count < query){
+            return fibonacci(query, count+last, count);
+        };
+        if(count === query){
+            return true;
+        }
+        return false;
+      };
+
+      function isPrime(num) {
+        for (var i = 2; i < num; i++) if (num % i === 0) return false;
+        return num > 1;
+      }
+      
+      function isNumeric(value) {
+        let newNum;
+        if (parseFloat(value) < 0) {
+          newNum = 1;
+          document.getElementById("keyNum").value = 1;
+        } else {
+          newNum = Math.round(value);
+          document.getElementById("keyNum").value = newNum;
+        }
+
+        const checkType = document.getElementById("checkType").value
+        const numInt = parseInt(newNum)
+        let status ;
+        if(checkType == '1'){
+          const status = isPrime(numInt);
+          document.getElementById("result").innerHTML = status;
+        }else{
+          const status =  fibonacci(numInt);
+          document.getElementById("result").innerHTML = status;
+        }
+      }
+
+      function checkType(value) {
+        const keyNum = document.getElementById("keyNum").value
+        const numInt = parseInt(keyNum)
+        let status ;
+        if(value == '1'){
+          const status = isPrime(numInt);
+          document.getElementById("result").innerHTML = status;
+        }else{
+          const status =  fibonacci(numInt);
+          document.getElementById("result").innerHTML = status;
+        }
+      }
+
+      
+
+    </script>
+  </body>
+</html>
